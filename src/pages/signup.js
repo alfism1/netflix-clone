@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -14,6 +15,7 @@ export default function SignUp() {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -29,26 +31,33 @@ export default function SignUp() {
         const user = userCredential.user;
         updateProfile(user, {
           displayName: fullName,
-          photoURL: "https://blabla.omcs",
+          photoURL: Math.floor(Math.random() * 5) + 1,
         })
           .then(() => {
-            user.providerData.forEach((profile) => {
-              console.log("Sign-in provider: " + profile.providerId);
-              console.log("  Provider-specific UID: " + profile.uid);
-              console.log("  Name: " + profile.displayName);
-              console.log("  Email: " + profile.email);
-              console.log("  Photo URL: " + profile.photoURL);
-            });
+            navigate(ROUTES.BROWSE, {replace: true})
+            // user.providerData.forEach((profile) => {
+            //   console.log("Sign-in provider: " + profile.providerId);
+            //   console.log("  Provider-specific UID: " + profile.uid);
+            //   console.log("  Name: " + profile.displayName);
+            //   console.log("  Email: " + profile.email);
+            //   console.log("  Photo URL: " + profile.photoURL);
+            // });
           })
           .catch((error) => {
-            console.log(error.message);
+            // console.log(error.message);
+            setFullName("");
+            setEmailAddress("");
+            setPassword("");
             setError(error.message);
           });
       })
       .catch((error) => {
-        const errorCode = error.code;
+        // const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        // console.log(errorCode, errorMessage);
+        setFullName("");
+        setEmailAddress("");
+        setPassword("");
         setError(errorMessage);
       });
   }

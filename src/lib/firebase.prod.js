@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// import { getFirestore } from "firebase/firestore";
-import "firebase/compat/auth";
+import { getFirestore } from "firebase/firestore";
+// import "firebase/compat/auth";
 // import { seedDatabase } from "../seed";
 
 const firebaseConfig = {
@@ -21,10 +21,10 @@ const firebase = initializeApp(firebaseConfig);
 const analytics = getAnalytics(firebase);
 
 // // Initialize firestore and seed data data the firestore
-// const db = getFirestore();
+const db = getFirestore();
 // seedDatabase(db);
 
-export { firebase };
+export { firebase, db };
 
 
 // // Create new user
