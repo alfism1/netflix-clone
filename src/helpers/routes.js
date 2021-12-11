@@ -2,8 +2,9 @@ import { Navigate, Outlet } from "react-router-dom";
 import * as ROUTES from "../constants/routes"
 
 const useAuth = (user) => {
-  return user && true;
+  return user.user !== null;
 }
+
 
 export const IsUserRedirect = ({ user, navigateTo }) => {
   const isAuth = useAuth(user);
